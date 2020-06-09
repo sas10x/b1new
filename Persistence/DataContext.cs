@@ -14,6 +14,12 @@ namespace Persistence
         public DbSet<Activity> Activities { get; set; }
         public DbSet<UserActivity> UserActivities { get; set; }
 
+        // TinabangayTaBrad
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
         protected override void OnModelCreating (ModelBuilder builder)
         {
             base.OnModelCreating(builder);

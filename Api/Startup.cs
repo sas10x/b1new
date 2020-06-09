@@ -42,7 +42,13 @@ namespace Api
                 options.UseLazyLoadingProxies();
                 options.UseSqlServer(Configuration["Data:ConnectionString"]);
             });
-            services.AddCors();
+            services.AddCors(opt => 
+            {
+	            opt.AddPolicy("CorsPolicy", policy => 
+	            {
+		        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+	            });
+            });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
             services.AddMvc(opt =>
