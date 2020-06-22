@@ -34,5 +34,12 @@ namespace Api.Controllers
         {
             return await Mediator.Send(command);
         }
+        [AllowAnonymous]
+      
+        [HttpGet("answer/{petsa}")]
+        public async Task<ActionResult<List<Answer>>> Report(string petsa)
+        {
+            return await Mediator.Send(new Report.Query{Petsa = petsa});
+        }
     }
 }
