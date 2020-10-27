@@ -19,6 +19,8 @@ namespace Persistence
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Visit> Visits { get; set; }
 
         protected override void OnModelCreating (ModelBuilder builder)
         {
