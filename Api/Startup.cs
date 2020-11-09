@@ -46,7 +46,7 @@ namespace Api
             {
 	            opt.AddPolicy("CorsPolicy", policy => 
 	            {
-		        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+		        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("capacitor://localhost","ionic://localhost","http://localhost","http://localhost:8080","http://localhost:8100");
 	            });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
@@ -99,7 +99,7 @@ namespace Api
               
             }
             app.UseRouting();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

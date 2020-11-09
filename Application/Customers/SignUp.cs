@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -15,15 +16,24 @@ namespace Application.Customers
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Sex { get; set; }
-        public int IdNumber { get; set; }
-        
         public int Age { get; set; }
         public string Barangay { get; set; }
         public string City { get; set; }
         
         }
 
-        
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.FirstName).MaximumLength(255);
+                RuleFor(x => x.LastName).MaximumLength(255);
+                RuleFor(x => x.Sex).MaximumLength(255);
+                RuleFor(x => x.Age).GreaterThan(18).WithMessage("Should be greater than 18");
+                RuleFor(x => x.Barangay).MaximumLength(255);
+                RuleFor(x => x.City).MaximumLength(255);
+            }
+        }
         public class Handler : IRequestHandler<Command, Guid>
         {
             private readonly DataContext _context;

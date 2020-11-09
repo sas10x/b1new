@@ -2,10 +2,12 @@ using System.Threading.Tasks;
 using Application.Customers;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [AllowAnonymous]
     public class CustomerController : BaseController
     {
         [HttpPost("session")]
