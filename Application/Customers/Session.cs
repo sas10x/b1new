@@ -13,8 +13,8 @@ namespace Application.Customers
     {
         public class Command : IRequest
         {
-        public Guid Id { get; set; }
-        public int Temperature { get; set; }
+        public string Id { get; set; }
+        public string Temperature { get; set; }
         
         }
 
@@ -28,14 +28,20 @@ namespace Application.Customers
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var customer = await _context.Customers
-                    .FindAsync(request.Id);
-                if (customer == null)
-                    throw new RestException(HttpStatusCode.NotFound, new {Customer = "Could not find question"});
-
+                var id = Guid.Parse(request.Id);
+                // var customer = await _context.Customers
+                //     .FindAsync(id);
+                // if (customer == null)
+                //     throw new RestException(HttpStatusCode.NotFound, new {Customer = "Could not find question"});
+                
+                var temperature = decimal.Parse(request.Temperature);
                 var visit = new Visit
                 {
-                    Temperature = request.Temperature,
+                    CustomerId = id,
+                    // Customer = customer,
+                    Action = "IN",
+                    Branch = "CHBC Banilad",
+                    Temperature = temperature,
                     Date = DateTime.Now
                 };
                  _context.Visits.Add(visit);

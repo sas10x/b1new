@@ -20,18 +20,18 @@ namespace Api.Controllers
         }
 
         // GET api/values
-        // [HttpGet]
-        // public ActionResult<IEnumerable<string>> Get()
-        // {
-        //     return new string[] { "value1", "value2" };
-        // }
-         [HttpGet]
-         //[Authorize(Policy = "IsActivityHost")]
-        public async Task<ActionResult<IEnumerable<Value>>> Get()
+        [HttpGet]
+        public ActionResult<IEnumerable<string>> Get()
         {
-            var values = await _context.Values.ToListAsync();
-            return Ok(values);
+            return new string[] { "value1", "value2" };
         }
+        //  [HttpGet]
+        //  //[Authorize(Policy = "IsActivityHost")]
+        // public async Task<ActionResult<IEnumerable<Value>>> Get()
+        // {
+        //     var values = await _context.Values.ToListAsync();
+        //     return Ok(values);
+        // }
 
         // GET api/values/5
         [HttpGet("{id}")]
