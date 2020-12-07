@@ -18,7 +18,7 @@ namespace Application.Customers
         //     public Guid Id { get; set; }
         // }   
         public class Query : IRequest<List<VisitDto>> { 
-            public DateTime? Date { get; set; }
+            public DateTime Date { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, List<VisitDto>>
@@ -34,8 +34,9 @@ namespace Application.Customers
 
             public async Task<List<VisitDto>> Handle(Query request, CancellationToken cancellationToken)
             {
+                var date1 = (request.Date).AddDays(1);
                 var visits = await _context.Visits
-                    .Where(x => x.Date >= request.Date)
+                    .Where(x => x.Date >= request.Date && x.Date < date1 )
                     .ToListAsync();
                     
                 // return VisitDtos;
