@@ -21,6 +21,8 @@ namespace Persistence
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Visit> Visits { get; set; }
+        public DbSet<Entry> Entrys { get; set; }
+         public DbSet<Enter> Enters { get; set; }
 
         protected override void OnModelCreating (ModelBuilder builder)
         {
@@ -42,8 +44,6 @@ namespace Persistence
                 .HasOne(a => a.Activity)
                 .WithMany(u => u.UserActivities)
                 .HasForeignKey(a => a.ActivityId);
-                
-
         }  
     }
 }

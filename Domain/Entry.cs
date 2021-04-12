@@ -1,10 +1,9 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
-    public class Visit
+    public class Entry
     {
         public Guid Id { get; set; }
         [Column(TypeName = "decimal(18,4)")]
@@ -13,8 +12,6 @@ namespace Domain
         public string Branch { get; set; }
         public DateTime Date { get; set; }
         public string Qcode { get; set; }
-        public Guid CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
 
     }
 }

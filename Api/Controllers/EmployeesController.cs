@@ -5,6 +5,7 @@ using Application.Employees;
 using System.Collections.Generic;
 using Domain;
 using MediatR;
+using System;
 
 namespace Api.Controllers
 {
@@ -36,10 +37,17 @@ namespace Api.Controllers
         }
         [AllowAnonymous]
       
-        [HttpGet("answer/{petsa}")]
-        public async Task<ActionResult<List<Answer>>> Report(string petsa)
+        [HttpGet("answers/{petsa}")]
+        public async Task<ActionResult<List<AnswerDto>>> Report(string petsa)
         {
             return await Mediator.Send(new Report.Query{Petsa = petsa});
         }
+        //  [HttpGet("answer/petsa")]
+        // public async Task<ActionResult<List<Answer>>> List(string to, 
+        //     string from)
+        // {
+        //     return await Mediator.Send(new ReportPetsa.Query(to, 
+        //         from));
+        // }
     }
 }

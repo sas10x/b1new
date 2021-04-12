@@ -28,23 +28,25 @@ namespace Application.Customers
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var id = Guid.Parse(request.Id);
+                // var id = Guid.Parse(request.Id);
+
                 // var customer = await _context.Customers
                 //     .FindAsync(id);
                 // if (customer == null)
                 //     throw new RestException(HttpStatusCode.NotFound, new {Customer = "Could not find question"});
                 
                 var temperature = decimal.Parse(request.Temperature);
-                var visit = new Visit
+                var Entry = new Entry
                 {
-                    CustomerId = id,
+                    Qcode = request.Id,
+                    // CustomerId = id,
                     // Customer = customer,
                     Action = "IN",
                     Branch = "CHBC Banilad",
                     Temperature = temperature,
                     Date = DateTime.Now
                 };
-                 _context.Visits.Add(visit);
+                 _context.Entrys.Add(Entry);
                 var success = await _context.SaveChangesAsync() > 0;
                 
                 if (success) return Unit.Value;

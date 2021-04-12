@@ -40,14 +40,14 @@ namespace Api
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseLazyLoadingProxies();
-                // options.UseSqlServer(Configuration["Data:ConnectionString"]);
-                options.UseMySql(Configuration["Data:ConnectionString"]);
+                options.UseSqlServer(Configuration["Data:ConnectionString"]);
+                // options.UseMySql(Configuration["Data:ConnectionString"]);
             });
             services.AddCors(opt => 
             {
 	            opt.AddPolicy("CorsPolicy", policy => 
 	            {
-		            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("capacitor://localhost","ionic://localhost","http://localhost","http://localhost:8080","http://localhost:8100","http://localhost:4200").AllowCredentials();
+		            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("capacitor://localhost","ionic://localhost","http://localhost","http://localhost:8080","http://localhost:8100","http://localhost:4200","http://localhost:4200").AllowCredentials();
                     // policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials();
 	            });
             });

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,13 +14,13 @@ namespace Application.Employees
 {
     public class Report
     {
-        public class Query : IRequest<List<Answer>> 
+        public class Query : IRequest<List<AnswerDto>> 
         {
             
             public string Petsa { get; set; }
          }
 
-        public class Handler : IRequestHandler<Query, List<Answer>>
+        public class Handler : IRequestHandler<Query, List<AnswerDto>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -30,14 +31,23 @@ namespace Application.Employees
                 _mapper = mapper;
             }
 
-            public async Task<List<Answer>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<AnswerDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var petsa = new SqlParameter("@Petsa", request.Petsa+"%");
-                var answers = await _context.Answers
-                    .FromSqlRaw("SELECT * FROM Answers WHERE Id LIKE @Petsa", petsa)
-                    .ToListAsync();
+                var pizza = DateTime.Parse(request.Petsa);
+                var date1 = (pizza).AddDays(1);
+                var startPetsa = pizza.ToString("d");
+                var endPetsa = date1.ToString("d");
 
-                return answers;
+                var from = new SqlParameter("@From", startPetsa);
+                var to = new SqlParameter("@To", endPetsa);
+                // var answers = await _context.Answers
+                //     .Where(t => t.Date > DateTime.Parse(startPetsa) && t.Date < DateTime.Parse(endPetsa))
+                //     .ToListAsync();
+                var answers = await _context.Answers
+                    .FromSqlRaw("SELECT * FROM Answers WHERE Date BETWEEN @From AND @To", from, to)
+                    .ToListAsync();
+                return _mapper.Map<List<Answer>, List<AnswerDto>>(answers);
+                // return answers;
             }
 
         }
