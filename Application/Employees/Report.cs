@@ -18,6 +18,7 @@ namespace Application.Employees
         {
             
             public string Petsa { get; set; }
+            public string Branch { get; set; }
          }
 
         public class Handler : IRequestHandler<Query, List<AnswerDto>>

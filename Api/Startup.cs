@@ -47,7 +47,17 @@ namespace Api
             {
 	            opt.AddPolicy("CorsPolicy", policy => 
 	            {
-		            policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("capacitor://localhost","ionic://localhost","http://localhost","http://localhost:8080","http://localhost:8100","http://localhost:4200","http://localhost:4200").AllowCredentials();
+		            policy.AllowAnyHeader().AllowAnyMethod()
+                    .WithOrigins(
+                        "capacitor://localhost",
+                        "ionic://localhost",
+                        "http://localhost",
+                        "http://localhost:8080",
+                        "http://localhost:8100",
+                        "http://localhost:4200",
+                        "http://heusc:4201",
+                        "http://localhost:4200")
+                    .AllowCredentials();
                     // policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials();
 	            });
             });
@@ -78,7 +88,7 @@ namespace Api
             services.AddTransient<IAuthorizationHandler, IsUserRequirementHandler>();
             services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
             
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {

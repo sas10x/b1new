@@ -14,5 +14,6 @@ namespace Domain
         public virtual Address Address { get; set; }
         public int AddressId { get; set; }
         public DateTime Date { get; set; }
+        public string Branch { get; set; }
     }
 }

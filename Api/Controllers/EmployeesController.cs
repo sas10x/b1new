@@ -36,11 +36,17 @@ namespace Api.Controllers
             return await Mediator.Send(command);
         }
        
-        [HttpGet("answers/{petsa}")]
-        public async Task<ActionResult<List<AnswerDto>>> Report(string petsa)
+        [HttpGet("answers/{branch}/{petsa}")]
+        public async Task<ActionResult<List<AnswerDto>>> Report(string petsa, string Branch)
         {
-            return await Mediator.Send(new Report.Query{Petsa = petsa});
+            return await Mediator.Send(new Report.Query{Petsa = petsa, Branch = Branch});
         }
+        // [HttpGet("{username}/follow")]
+        // public async Task<ActionResult<List<Profile>>> GetFollowings(string username, string predicate)
+        // {
+        //     return await Mediator.Send(new List.Query{Username = username, Predicate = predicate});
+        // }
+
         //  [HttpGet("answer/petsa")]
         // public async Task<ActionResult<List<Answer>>> List(string to, 
         //     string from)

@@ -21,7 +21,7 @@ namespace Application.Employees
         public string Street { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
-
+        public string Branch { get; set; }
         }
 
         
@@ -51,7 +51,8 @@ namespace Application.Employees
                     Sex = request.Sex,
                     Age = request.Age,
                     Address = address,
-                    Date = DateTime.Now
+                    Date = DateTime.Now,
+                    Branch = request.Branch
                 };
                 _context.Employees.Add(employee);
                 var success = await _context.SaveChangesAsync() > 0;
